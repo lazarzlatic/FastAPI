@@ -16,5 +16,8 @@ get, post, put, delete
 Data validation path and Query, swagger configuration
 
 ## Project 3
-### SQL Database
+Implement ToDO list
+
+API Request Methods
+### SQLite3
 
