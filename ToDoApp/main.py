@@ -8,11 +8,13 @@ from starlette import status
 import models
 from models import Todos
 from database import engine, SessionLocal
+from routers import auth
 
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
 
+app.include_router(auth.router)
 
 def get_db():
     db = SessionLocal()
@@ -24,11 +26,13 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
+
 class ToDoRequest(BaseModel):
     title: str = Field(min_length=3)
     description: str = Field(min_length=3, max_length=100)
     priority: int = Field(gt=0, lt=6)
     complete: bool
+
 
 
 @app.get("/", status_code=status.HTTP_200_OK)
